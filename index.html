@@ -8,6 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+
+  <!-- Vercel Web Analytics -->
+  <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -695,6 +700,18 @@
       const heroEls = document.querySelectorAll('.hero .fade-up.visible');
       heroEls.forEach((el, i) => {
         el.style.transitionDelay = `${i * 0.12}s`;
+      });
+    });
+
+    // ========== VERCEL ANALYTICS CTA CLICK TRACKING ==========
+    // Track clicks on conversion CTA buttons
+    document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const label = this.textContent.trim().substring(0, 60);
+        window.va('event', {
+          name: 'cta_click',
+          data: { cta_label: label }
+        });
       });
     });
   </script>
